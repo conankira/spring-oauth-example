@@ -37,11 +37,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http
                 .authorizeRequests()
-                .antMatchers("/login.jsp").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().hasRole("USER")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/login.jsp?authorization_error=true")
+                .accessDeniedPage("/login?authorization_error=true")
                 .and()
                 // TODO: put CSRF protection back into this endpoint
                 .csrf()
@@ -49,12 +49,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login.jsp")
+                .logoutSuccessUrl("/loginSuccess")
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login")
-                .failureUrl("/login.jsp?authentication_error=true")
-                .loginPage("/login.jsp");
+                .failureUrl("/login?authentication_error=true")
+                .loginPage("/login");
         // @formatter:on
     }
 }

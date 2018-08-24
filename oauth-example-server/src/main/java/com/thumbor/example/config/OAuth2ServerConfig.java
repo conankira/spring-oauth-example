@@ -64,6 +64,7 @@ public class OAuth2ServerConfig {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/me").access("#oauth2.hasScope('read')")
+                    .antMatchers("/order/**").access("#oauth2.hasScope('read')")
                     .antMatchers("/photos").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))")
                     .antMatchers("/photos/trusted/**").access("#oauth2.hasScope('trust')")
                     .antMatchers("/photos/user/**").access("#oauth2.hasScope('trust')")
@@ -142,6 +143,8 @@ public class OAuth2ServerConfig {
                     .authorizedGrantTypes("implicit")
                     .authorities("ROLE_CLIENT")
                     .scopes("read", "write", "trust")
+
+
                     .autoApprove(true);
             // @formatter:on
         }
