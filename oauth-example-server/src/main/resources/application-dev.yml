@@ -1,0 +1,14 @@
+#服务器接口配置
+server:
+  port: 9090
+  tomcat.max-threads: 0
+  tomcat.uri-encoding: UTF-8
+  servlet:
+    session:
+      timeout: 30
+
+
+log:
+  path: ${user.home}/logs/applogs/oauth_server
+  level: info
+

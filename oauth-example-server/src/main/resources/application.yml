@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: @profileActive@
+
+  application:
+    name: oauth_server
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+
+
+
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+
+
+  endpoints:
+    web:
+      exposure:
+        include: info, health, shutdown
+
