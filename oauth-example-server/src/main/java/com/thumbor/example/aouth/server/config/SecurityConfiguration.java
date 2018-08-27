@@ -1,24 +1,36 @@
-package com.thumbor.example.config;
+package com.thumbor.example.aouth.server.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Bean
+    public static Pbkdf2PasswordEncoder passwordEncoder() {
+        return new Pbkdf2PasswordEncoder();
+    }
+    @Autowired
+    private AuthenticationProvider securityProvider;
 
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("marissa").password("koala").roles("USER").and().withUser("paul")
-                .password("emu").roles("USER");
+
+        auth.authenticationProvider(securityProvider);
+        /*auth.inMemoryAuthentication()
+                .withUser("marissa").password("{pbkdf2}koala").roles("USER")
+                .and().withUser("paul").password("{noop}emu").roles("USER")
+        ;*/
     }
 
     @Override
@@ -33,6 +45,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
+        http
+                .requestMatchers().anyRequest()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/oauth/*").permitAll();
+        // @formatter:on
+    }
+
+  /*  @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
@@ -56,5 +79,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?authentication_error=true")
                 .loginPage("/login");
         // @formatter:on
-    }
+    }*/
 }

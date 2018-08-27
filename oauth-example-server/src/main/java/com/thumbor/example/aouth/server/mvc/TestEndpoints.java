@@ -1,34 +1,27 @@
-package com.thumbor.example.mvc;
+package com.thumbor.example.aouth.server.mvc;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by xushubing on 2018/8/24.
  */
 @RestController
-public class LoginEndpoints {
-
-    @GetMapping("/login")
-    public String login() {
+public class TestEndpoints {
+    @GetMapping("/product/{id}")
+    public String getProduct(@PathVariable String id) {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "login";
+        return "product id : " + id;
     }
 
-    @GetMapping("/loginSuccess")
-    public String loginSuccess() {
+    @GetMapping("/order/{id}")
+    public String getOrder(@PathVariable String id) {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "login";
-    }
-
-    @GetMapping("/logout")
-    public String logout() {
-        //for debug
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "logout";
+        return "order id : " + id;
     }
 }

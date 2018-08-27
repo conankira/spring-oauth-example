@@ -11,17 +11,7 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-  thymeleaf:
-    cache: false
-    suffix: ".html"
-    prefix: classpath:/templates/
-    mode: HTML5
-    encoding: UTF-8
-    enabled: true
-    check-template: true
-    check-template-location: true
-    servlet:
-      content-type: text/html
+
   http:
     encoding:
       force: true

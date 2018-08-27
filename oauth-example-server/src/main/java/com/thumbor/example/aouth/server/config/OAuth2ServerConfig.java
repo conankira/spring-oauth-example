@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thumbor.example.config;
+package com.thumbor.example.aouth.server.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -162,7 +162,9 @@ public class OAuth2ServerConfig {
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-            oauthServer.realm("sparklr2/client");
+            //oauthServer.realm("sparklr2/client");
+
+            oauthServer.allowFormAuthenticationForClients();
         }
 
     }

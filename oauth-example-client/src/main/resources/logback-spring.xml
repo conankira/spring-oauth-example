@@ -4,7 +4,7 @@
     <springProperty scope="context" name="logLevel" source="log.level"/>
     <springProperty scope="context" name="logPath" source="log.path"/>
 
-    <property name="APP_NAME" value="oauth_server" />
+    <property name="APP_NAME" value="oauth_client" />
 
     <property name="LOG_FILE_HOME" value="${logPath}" />
     <contextName>${APP_NAME}</contextName>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title>测试</title>
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+    <script th:src="@{/api/static/js/jquery.min.js}" ></script>
+
+    <script type="text/javascript">
+        function login() {
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                url: "/api/lianlian/notify/recharge/pretest",
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result == null) {
+                        alert("result is null");
+                    }
+                    $("#version").val(result.version);
+                    $("#oid_partner").val(result.oid_partner);
+                    $("#user_id").val(result.user_id);
+                    $("#sign_type").val(result.sign_type);
+                    $("#sign").val(result.sign);
+                    $("#busi_partner").val(result.busi_partner);
+                    $("#no_order").val(result.no_order);
+                    $("#dt_order").val(result.dt_order);
+                    $("#name_goods").val(result.name_goods);
+                    $("#money_order").val(result.money_order);
+                    $("#notify_url").val(result.notify_url);
+                    $("#url_return").val(result.url_return);
+                    $("#risk_item").val(result.risk_item);
+                    $("#timestamp").val(result.timestamp);
+                    $("#valid_order").val(result.valid_order);
+                    $("#pay_type").val(result.pay_type);
+
+                    $("#payBillForm").attr("action", result.req_url);
+                    //$("#payBillForm").submit();
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+
+        }
+
+        function formSubmit() {
+            document.getElementById("payBillForm").submit()
+        }
+    </script>
+
+</head>
+<body>
+<h1>测试页面 注意支付金额是否为1分钱，充错了钱就没了</h1>
+<p th:text="一分钱！！！！！！"></p>
+<form id="form1" onsubmit="return false" action="" method="post">
+    <div class="easyui-panel" title="充值金额" style="width:100%;padding:30px 60px;">
+        <div style="margin-bottom:20px">
+            <input class="easyui-textbox" name="amount" style="width:50%" id="amount"
+                   data-options="label:'充值金额:',required:true"/>
+
+            <p><input type="button" value="充值，调用后台" onclick="login()">
+        </div>
+    </div>
+</form>
+<form id="payBillForm" action="" method="post">
+    版本号version:<input type="text" name="version" id="version" value=""/> </br>
+    支付交易商户编号oid_partner:<input type="text" name="oid_partner" id="oid_partner" value=""/> </br>
+    商户用户唯一编号user_id:<input type="text" name="user_id" id="user_id" value=""/> </br>
+    签名方式sign_type:<input type="text" name="sign_type" id="sign_type" value=""/> </br>
+    签名sign:<input type="text" name="sign" id="sign" value=""/> </br>
+    商户业务类型busi_partner:<input type="text" name="busi_partner" id="busi_partner" value=""/> </br>
+    商户唯一订单号no_order:<input type="text" name="no_order" id="no_order" value=""/> </br>
+    商户订单时间 dt_order:<input type="text" name="dt_order" id="dt_order" value=""/> </br>
+    商品名称name_goods:<input type="text" name="name_goods" id="name_goods" value=""/> </br>
+    交易金额 money_order:<input type="text" name="money_order" id="money_order" value=""/> </br>
+    服务器异步通知地址notify_url:<input type="text" name="notify_url" id="notify_url" value=""/> </br>
+    支付结束回显url url_return:<input type="text" name="url_return" id="url_return" value=""/> </br>
+    风险控制参数 risk_item:<input type="text" name="risk_item" id="risk_item" value=""/> </br>
+    时间戳timestamp:<input type="text" name="timestamp" id="timestamp" value=""/> </br>
+    订单有效时间valid_order:<input type="text" name="valid_order" id="valid_order" value=""/> </br>
+    支付方式 pay_type:<input type="text" name="pay_type" id="pay_type" value=""/> </br>
+
+    <input type="button" onclick="formSubmit()" value="去连连支付">
+</form>
+
+</body>
+</html>

@@ -6,12 +6,7 @@ server:
   servlet:
     session:
       timeout: 30
-spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/spring_boot_example?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
+
 
 log:
   path: ${user.home}/logs/applogs/oauth_server
