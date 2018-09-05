@@ -132,7 +132,7 @@ public class OAuth2ServerConfig {
                     .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
                     .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
                     .scopes("read", "write", "trust")
-                    .secret("somesecret")
+                    .secret("5570cd22cd6692558b6008815ee422660b8ae71b1a477282910e415af024f68b753aa665149ab65d")
                     .and()
                     .withClient("my-less-trusted-client")
                     .authorizedGrantTypes("authorization_code", "implicit")

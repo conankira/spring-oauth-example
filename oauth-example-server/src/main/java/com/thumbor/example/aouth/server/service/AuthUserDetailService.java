@@ -36,7 +36,7 @@ public class AuthUserDetailService implements UserDetailsService {
                 List<UserRole> urs = userRoleMapper.selectByUserId(user.getId());
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                 for(UserRole ur : urs) {
-                    String roleName = ur.getRole().getName();
+                    String roleName = ur.getName();
                     SimpleGrantedAuthority grant = new SimpleGrantedAuthority(roleName);
                     authorities.add(grant);
                 }

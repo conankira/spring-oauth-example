@@ -31,9 +31,17 @@ public class UserRole implements Serializable {
      */
     private Integer role_id;
 
+    private String name;
+
     private Role role;
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      *

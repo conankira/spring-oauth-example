@@ -1,11 +1,13 @@
 package com.thumbor.example.aouth.server.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,6 +20,9 @@ public class SecurityProvider implements AuthenticationProvider {
     public SecurityProvider(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
+
+    @Autowired
+    private Pbkdf2PasswordEncoder pbkdf2PasswordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authenticate) throws AuthenticationException {
@@ -36,20 +41,22 @@ public class SecurityProvider implements AuthenticationProvider {
         } else if (!userDetails.isEnabled()) {
             System.out.println("jinyong用户已被禁用");
             throw new DisabledException("用户已被禁用");
-        } else if (!userDetails.isAccountNonExpired()) {
+        } else if (userDetails.isAccountNonExpired()) {
             System.out.println("guoqi账号已过期");
             throw new LockedException("账号已过期");
-        } else if (!userDetails.isAccountNonLocked()) {
+        } else if (userDetails.isAccountNonLocked()) {
             System.out.println("suoding账号已被锁定");
             throw new LockedException("账号已被锁定");
-        } else if (!userDetails.isCredentialsNonExpired()) {
+        } else if (userDetails.isCredentialsNonExpired()) {
             System.out.println("pingzheng凭证已过期");
             throw new LockedException("凭证已过期");
         }
 
         String password = userDetails.getPassword();
+
+        boolean match = pbkdf2PasswordEncoder.matches(token.getCredentials().toString(), password);
         //与authentication里面的credentials相比较
-        if (!password.equals(token.getCredentials())) {
+        if (!match) {
             throw new BadCredentialsException("Invalid username/password");
         }
         //授权

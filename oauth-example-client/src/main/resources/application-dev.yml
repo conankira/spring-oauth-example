@@ -1,6 +1,6 @@
 #服务器接口配置
 server:
-  port: 9090
+  port: 9091
   tomcat.max-threads: 0
   tomcat.uri-encoding: UTF-8
   servlet:
@@ -9,6 +9,6 @@ server:
 
 
 log:
-  path: ${user.home}/logs/applogs/oauth_server
+  path: ${user.home}/logs/applogs/oauth_client
   level: info
 

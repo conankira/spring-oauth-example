@@ -76,8 +76,8 @@ public interface UserRoleMapper {
 
     @Select({
             "select",
-            "id, user_id, role_id",
-            "from tbl_user_role",
+            "tur.id, tur.user_id, tur.role_id,r.name",
+            "from tbl_user_role as tur inner join tbl_role as r on r.id = tur.role_id",
             "where user_id = #{userId,jdbcType=INTEGER}"
     })
     @Results({
