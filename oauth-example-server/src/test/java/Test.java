@@ -7,6 +7,6 @@ public class Test {
 
     public static void main(String[] args){
         Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
-        System.out.println(pbkdf2PasswordEncoder.encode("koala"));
+        System.out.println(pbkdf2PasswordEncoder.encode("marissa"));
     }
 }
