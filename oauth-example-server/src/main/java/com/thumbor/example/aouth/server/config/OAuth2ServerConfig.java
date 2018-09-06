@@ -98,6 +98,8 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
+            //clients.withClientDetails();
+
             // @formatter:off
             clients.inMemory().withClient("tonr")
                     .resourceIds(SPARKLR_RESOURCE_ID)
