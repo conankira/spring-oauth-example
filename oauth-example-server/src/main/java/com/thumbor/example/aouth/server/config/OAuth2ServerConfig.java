@@ -15,6 +15,7 @@
  */
 package com.thumbor.example.aouth.server.config;
 
+import com.thumbor.example.aouth.server.service.MyClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -95,13 +96,16 @@ public class OAuth2ServerConfig {
         @Value("${tonr.redirect:http://localhost:8080/tonr2/sparklr/redirect}")
         private String tonrRedirectUri;
 
+        @Autowired
+        private MyClientDetailsService myClientDetailsService;
+
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-            //clients.withClientDetails();
+            clients.withClientDetails(myClientDetailsService);
 
             // @formatter:off
-            clients.inMemory().withClient("tonr")
+         /*   clients.inMemory().withClient("tonr")
                     .resourceIds(SPARKLR_RESOURCE_ID)
                     .authorizedGrantTypes("authorization_code", "implicit")
                     .authorities("ROLE_CLIENT")
@@ -147,7 +151,7 @@ public class OAuth2ServerConfig {
                     .scopes("read", "write", "trust")
 
 
-                    .autoApprove(true);
+                    .autoApprove(true);*/
             // @formatter:on
         }
 
