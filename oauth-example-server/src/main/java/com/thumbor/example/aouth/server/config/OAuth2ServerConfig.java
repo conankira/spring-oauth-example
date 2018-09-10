@@ -18,9 +18,9 @@ package com.thumbor.example.aouth.server.config;
 import com.thumbor.example.aouth.server.service.MyClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -32,7 +32,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
+import javax.annotation.Resource;
 
 /**
  * @author Rob Winch
@@ -48,6 +50,7 @@ public class OAuth2ServerConfig {
 
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) {
+            //resources。
             resources.resourceId(SPARKLR_RESOURCE_ID).stateless(false);
         }
 
@@ -72,71 +75,27 @@ public class OAuth2ServerConfig {
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager authenticationManager;
 
-        @Value("${tonr.redirect:http://localhost:8080/tonr2/sparklr/redirect}")
-        private String tonrRedirectUri;
 
         @Autowired
         private MyClientDetailsService myClientDetailsService;
+
+
+        @Resource
+        private LettuceConnectionFactory lettuceConnectionFactory;
+
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
             clients.withClientDetails(myClientDetailsService);
 
-            // @formatter:off
-         /*   clients.inMemory().withClient("tonr")
-                    .resourceIds(SPARKLR_RESOURCE_ID)
-                    .authorizedGrantTypes("authorization_code", "implicit")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("read", "write")
-                    .secret("secret")
-                    .redirectUris("http://localhost:8080/tonr2/sparklr/photos")
-                    .and()
-                    .withClient("tonr-with-redirect")
-                    .resourceIds(SPARKLR_RESOURCE_ID)
-                    .authorizedGrantTypes("authorization_code", "implicit")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("read", "write")
-                    .secret("secret")
-                    .redirectUris(tonrRedirectUri)
-                    .and()
-                    .withClient("my-client-with-registered-redirect")
-                    .resourceIds(SPARKLR_RESOURCE_ID)
-                    .authorizedGrantTypes("authorization_code", "client_credentials")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("read", "trust")
-                    .redirectUris("http://anywhere?key=value")
-                    .and()
-                    .withClient("my-trusted-client")
-                    .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-                    .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-                    .scopes("read", "write", "trust")
-                    .accessTokenValiditySeconds(60)
-                    .and()
-                    .withClient("my-trusted-client-with-secret")
-                    .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-                    .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-                    .scopes("read", "write", "trust")
-                    .secret("5570cd22cd6692558b6008815ee422660b8ae71b1a477282910e415af024f68b753aa665149ab65d")
-                    .and()
-                    .withClient("my-less-trusted-client")
-                    .authorizedGrantTypes("authorization_code", "implicit")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("read", "write", "trust")
-                    .and()
-                    .withClient("my-less-trusted-autoapprove-client")
-                    .authorizedGrantTypes("implicit")
-                    .authorities("ROLE_CLIENT")
-                    .scopes("read", "write", "trust")
 
-
-                    .autoApprove(true);*/
-            // @formatter:on
         }
 
         @Bean
         public TokenStore tokenStore() {
-            return new InMemoryTokenStore();
+            return new RedisTokenStore(lettuceConnectionFactory);
+            //return new InMemoryTokenStore();
         }
 
         @Override
@@ -147,8 +106,6 @@ public class OAuth2ServerConfig {
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-            //oauthServer.realm("sparklr2/client");
-
             oauthServer.allowFormAuthenticationForClients();
         }
 

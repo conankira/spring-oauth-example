@@ -13,6 +13,13 @@ spring:
     username: root
     password: root
 
+  redis:
+    password: 123456w
+    database: 6
+    url: redis://123456w@alpha.zyyl.redis01.srv:6378/6?timeout=5s
+    timeout: 5000
+
+logging.level.org.springframework.security: DEBUG
 log:
   path: ${user.home}/logs/applogs/oauth_server
   level: info
