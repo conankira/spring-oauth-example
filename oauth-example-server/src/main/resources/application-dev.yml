@@ -5,19 +5,18 @@ server:
   tomcat.uri-encoding: UTF-8
   servlet:
     session:
+      cookie:
+        name: UISESSIONMEMBER
       timeout: 30
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/spring_boot_example?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/spring_boot_example?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: root
 
   redis:
-    password: 123456w
-    database: 6
     url: redis://123456w@alpha.zyyl.redis01.srv:6378/6?timeout=5s
-    timeout: 5000
 
 logging.level.org.springframework.security: DEBUG
 log:

@@ -8,6 +8,24 @@ server:
       timeout: 30
 
 
+
+
+security:
+  oauth2:
+    client:
+      client-id:
+      client-secret:
+      accessTokenUri: http://127.0.0.1:9090/oauth/access_token
+      userAuthorizationUri: http://127.0.0.1:9090/oauth/authorize
+      clientAuthenticationScheme: form
+      registered-redirect-uri: ${site.baseUrl}/github_login
+      use-current-uri: false
+    resource:
+      userInfoUri: http://127.0.0.1/order/2
+    sso:
+      login-path: http://127.0.0.1:9090/github_login
+
+
 log:
   path: ${user.home}/logs/applogs/oauth_client
   level: info

@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication()
 @Slf4j
+
 public class OauthClientApp {
     public static void main(String[] args) {
 

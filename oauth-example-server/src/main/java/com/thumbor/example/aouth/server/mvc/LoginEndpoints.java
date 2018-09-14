@@ -1,33 +1,35 @@
+
 package com.thumbor.example.aouth.server.mvc;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 /**
  * Created by xushubing on 2018/8/24.
  */
-@RestController
+
+@Controller
 public class LoginEndpoints {
 
-    @ExceptionHandler(OAuth2Exception.class)
-    public void handleException(OAuth2Exception e) throws Exception {
+    @ExceptionHandler(Exception.class)
+    public void handleException(Exception e) throws Exception {
         e.printStackTrace();
     }
 
 
-    @GetMapping("/login")
-    public String login() {
+    @RequestMapping("/toLogin")
+    public String login(Model model) {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "login";
     }
 
-    @GetMapping("/loginSuccess")
+   /* @GetMapping("/loginSuccess")
     public String loginSuccess() {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,5 +41,6 @@ public class LoginEndpoints {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "logout";
-    }
+    }*/
 }
+
