@@ -1,3 +1,8 @@
+#### 运行步骤
+> 环境：jdk8+mysql+redis
+> 创建数据库：spring_boot_example ，运行init.sql
+
+
 #### 密码模式：
 
 > http://localhost:9090/oauth/token?username=marissa&password=koala&grant_type=password&scope=read&client_id=my-trusted-client-with-secret&client_secret=somesecret
