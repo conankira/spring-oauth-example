@@ -1,6 +1,10 @@
 #### 运行步骤
 > 环境：jdk8+mysql+redis
+
 > 创建数据库：spring_boot_example ，运行init.sql
+
+> 默认用户名：marissa，密码：koala
+
 
 
 #### 密码模式：
