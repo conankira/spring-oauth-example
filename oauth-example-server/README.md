@@ -18,6 +18,7 @@
 
 #### implicit 模式
 > http://localhost:9090/oauth/authorize?response_type=token&client_id=my-trusted-client-with-secret
+
 > 返回 https://www.baidu.com/#access_token=3a9492e4-226b-4b12-9f86-c985c1c984c5&token_type=bearer&expires_in=34362&scope=read%20write%20trust%20all
 
 
