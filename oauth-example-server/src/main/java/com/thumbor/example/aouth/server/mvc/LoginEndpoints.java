@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 /**
- * Created by xushubing on 2018/8/24.
+ * Created by thumbor on 2018/8/24.
  */
 
 @Controller

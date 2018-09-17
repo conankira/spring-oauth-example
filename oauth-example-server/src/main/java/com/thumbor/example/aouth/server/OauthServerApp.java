@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Created by xushubing on 2018/8/24.
+ * Created by thumbor on 2018/8/24.
  */
 @SpringBootApplication()
 @MapperScan("com.thumbor.example.aouth.server.db.dao")

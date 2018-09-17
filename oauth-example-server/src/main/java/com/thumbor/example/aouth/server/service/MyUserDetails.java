@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 /**
- * Created by xushubing on 2018/8/27.
+ * Created by thumbor on 2018/8/27.
  */
 public class MyUserDetails implements UserDetails {
     // 用户信息

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by xushubing on 2018/9/5.
+ * Created by thumbor on 2018/9/5.
  */
 @Service("myClientDetailsService")
 public class MyClientDetailsService implements ClientDetailsService {

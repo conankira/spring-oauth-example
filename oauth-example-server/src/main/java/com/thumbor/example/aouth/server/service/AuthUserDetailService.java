@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by xushubing on 2018/8/27.
+ * Created by thumbor on 2018/8/27.
  */
 @Service("userDetailsService")
 public class AuthUserDetailService implements UserDetailsService {

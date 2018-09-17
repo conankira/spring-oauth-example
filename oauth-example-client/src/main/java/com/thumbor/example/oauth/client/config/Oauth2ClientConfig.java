@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 */
 /**
- * Created by xushubing on 2018/9/11.
+ * Created by thumbor on 2018/9/11.
  *//*
 
 @Configuration

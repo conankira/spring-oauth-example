@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by xushubing on 2018/8/27.
+ * Created by thumbor on 2018/8/27.
  */
 @Service("securityProvider")
 public class SecurityProvider implements AuthenticationProvider {

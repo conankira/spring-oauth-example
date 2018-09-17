@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,14 +40,12 @@ import javax.annotation.Resource;
  * @author Rob Winch
  */
 @Configuration
-@Order(6)
 public class OAuth2ServerConfig {
 
     private static final String SPARKLR_RESOURCE_ID = "sparklr";
 
     @Configuration
     @EnableResourceServer
-    @Order(7)
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
         @Override
@@ -68,7 +65,6 @@ public class OAuth2ServerConfig {
 
     @Configuration
     @EnableAuthorizationServer
-    @Order(8)
     protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
         @Autowired
@@ -108,7 +104,11 @@ public class OAuth2ServerConfig {
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-            oauthServer.allowFormAuthenticationForClients().checkTokenAccess("permitAll()");;
+            oauthServer
+                    .realm("oauth2-resources")
+                    .tokenKeyAccess("permitAll()") //url:/oauth/token_key,exposes public key for token verification if using JWT tokens
+                    .checkTokenAccess("isAuthenticated()") //url:/oauth/check_token allow check token
+                    .allowFormAuthenticationForClients();
         }
 
     }

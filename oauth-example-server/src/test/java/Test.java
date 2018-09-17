@@ -1,7 +1,7 @@
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 /**
- * Created by xushubing on 2018/9/5.
+ * Created by thumbor on 2018/9/5.
  */
 public class Test {
 
