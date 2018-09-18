@@ -16,7 +16,8 @@ spring:
     password: root
 
   redis:
-    url: redis://123456w@alpha.zyyl.redis01.srv:6378/6?timeout=5s
+    url: redis://123456w@alpha.zyyl.redis01.srv:6378/6?timeout=5s&database=6
+    database: 6
 
 logging.level.org.springframework.security: DEBUG
 log:

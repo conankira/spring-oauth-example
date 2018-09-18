@@ -37,4 +37,16 @@ public class TestEndpoints {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "order id : " + id;
     }
+    @GetMapping("/role/{id}")
+    public String getRole(@PathVariable String id) {
+        //for debug
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "role id : " + id;
+    }
+    @GetMapping("/test/{id}")
+    public String getTest(@PathVariable String id) {
+        //for debug
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "test id : " + id;
+    }
 }

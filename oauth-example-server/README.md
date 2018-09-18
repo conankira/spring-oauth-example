@@ -29,3 +29,7 @@
 
 > http://localhost:9090/oauth/token?grant_type=authorization_code&code=6uX8Ki&client_id=my-trusted-client-with-secret&client_secret=somesecret&redirect_uri=http://www.baidu.com
 
+#### 刷新token
+ 
+ > http://localhost:9090/oauth/token?grant_type=refresh_token&client_id=my-trusted-client-with-secret&client_secret=somesecret&refresh_token=cabc864d-5b77-443b-8710-3b0dfee044be
+ 

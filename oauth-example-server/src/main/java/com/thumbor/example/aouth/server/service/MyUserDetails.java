@@ -44,17 +44,17 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.user.getState().equals(User.STATE_ACCOUNTEXPIRED);
+        return !this.user.getState().equals(User.STATE_ACCOUNTEXPIRED);
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.user.getState().equals(User.STATE_LOCK);
+        return !this.user.getState().equals(User.STATE_LOCK);
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.user.getState().equals(User.STATE_TOKENEXPIRED);
+        return !this.user.getState().equals(User.STATE_TOKENEXPIRED);
     }
 
     @Override

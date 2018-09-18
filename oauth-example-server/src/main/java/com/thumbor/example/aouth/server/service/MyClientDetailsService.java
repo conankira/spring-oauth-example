@@ -116,6 +116,8 @@ public class MyClientDetailsService implements ClientDetailsService {
 
         baseClientDetails.setAutoApproveScopes(Sets.newHashSet("true"));
 
+       // baseClientDetails.setAccessTokenValiditySeconds(120);
+        //baseClientDetails.setRefreshTokenValiditySeconds(60);
 
         return baseClientDetails;
     }

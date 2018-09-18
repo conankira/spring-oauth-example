@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -52,14 +53,33 @@ public class OAuth2ServerConfig {
         public void configure(ResourceServerSecurityConfigurer resources) {
             //resources。
             resources.resourceId(SPARKLR_RESOURCE_ID).stateless(false);
+            //resources.resourceId(SPARKLR_RESOURCE_ID);
         }
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/order/**").authenticated();//配置order访问控制，必须认证过后才可以访问
+                    .antMatchers("/order/**").authenticated()
+                    .antMatchers("/product/**").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))")//配置order访问控制，必须认证过后才可以访问
+                    .antMatchers("/role/**").access("(!#oauth2.isOAuth() and hasRole('ROLE_USER'))");//配置order访问控制，必须认证过后才可以访问
         }
+        //远程调用认证服务器，资源和认证分开
+       /* @Bean
+        public ResourceServerTokenServices tokenServices() {
+            RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
+            remoteTokenServices.setCheckTokenEndpointUrl("http://localhost:9090/oauth/check_token");
+            remoteTokenServices.setClientId("my-trusted-client-with-secret");
+            remoteTokenServices.setClientSecret("somesecret");
+            remoteTokenServices.setAccessTokenConverter(accessTokenConverter());
+            return remoteTokenServices;
+        }
+
+        @Bean
+        public AccessTokenConverter accessTokenConverter() {
+            return new DefaultAccessTokenConverter();
+        }*/
+        //end
 
     }
 
@@ -75,6 +95,9 @@ public class OAuth2ServerConfig {
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager authenticationManager;
 
+        @Autowired
+        @Qualifier("userDetailsService")
+        private UserDetailsService userDetailsService;
 
         @Autowired
         private MyClientDetailsService myClientDetailsService;
@@ -99,6 +122,7 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             endpoints.tokenStore(tokenStore)
+                    .userDetailsService(userDetailsService)
                     .authenticationManager(authenticationManager);
         }
 
