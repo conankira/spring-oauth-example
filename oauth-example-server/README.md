@@ -1,5 +1,5 @@
 #### 运行步骤
-> 环境：jdk8+mysql+redis
+> 环境：jdk8+mysql+redis+spring boot 2.0.4.RELEASE
 
 > 创建数据库：spring_boot_example ，运行init.sql
 
